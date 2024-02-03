@@ -12,5 +12,3 @@ DATABASES = {
         'PORT': 5432,
     }
 }
-
-print('local_settings')
