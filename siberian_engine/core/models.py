@@ -17,10 +17,10 @@ class Engine(models.Model):
 
     TRUCK_ENGINE = 'TE'
     CAR = 'C'
-    ENGINE_TYPE = {
+    ENGINE_TYPE = (
         (TRUCK_ENGINE, "Truck Engine"),
         (CAR, "Car")
-    }
+    )
     brand = models.ForeignKey(CarBrand, verbose_name="Брэнд",
                               on_delete=models.CASCADE,
                               blank=True,
@@ -88,6 +88,15 @@ class Operation(models.Model):
 
 class Order(models.Model):
     """Заказ - наряд"""
+    STATUS_ACCEPT = 'Принят'
+    STATUS_IN_PROGRESS = 'В работе'
+    STATUS_COMPLETE = 'Готов'
+
+    STATUS_ORDER = (
+        (STATUS_ACCEPT, 'Принят'),
+        (STATUS_IN_PROGRESS, 'В работе'),
+        (STATUS_COMPLETE, 'Готов')
+    )
 
     id = models.AutoField("Номер заказа", primary_key=True, unique=True)
     customer_name = models.CharField("Имя заказчика", max_length=50)
@@ -107,6 +116,9 @@ class Order(models.Model):
                                          blank=True,
                                          null=True
                                          )
+    status = models.CharField('Статус заказа',
+                              choices=STATUS_ORDER,
+                              default=STATUS_ORDER[0])
 
     class Meta:
         ordering = ["-accept_date"]

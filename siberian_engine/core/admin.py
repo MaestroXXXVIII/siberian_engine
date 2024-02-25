@@ -11,7 +11,7 @@ class CarBrandAdmin(admin.ModelAdmin):
 
 @admin.register(Engine)
 class EngineAdmin(admin.ModelAdmin):
-    list_display = ['title', 'engine_type']
+    list_display = ['title', 'brand', 'engine_type']
     search_fields = ['title', 'engine_type']
     prepopulated_fields = {'slug': ('title',)}
 
