@@ -2,6 +2,7 @@ asgiref==3.7.2
 black==24.1.1
 click==8.1.7
 Django==4.2
+django-environ==0.11.2
 mypy-extensions==1.0.0
 packaging==23.2
 pathspec==0.12.1

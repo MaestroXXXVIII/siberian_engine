@@ -6,18 +6,18 @@ from .models import Engine, Order, Operation
 
 
 class DashView(View):
-    def get(self, request):
-        engine = Engine.objects.all()
-        orders_accept = Order.objects.filter(status='Принят')
-        orders_in_progres = Order.objects.filter(status='В работе')
-        orders_complete = Order.objects.filter(status='Готов')
-        return render(request, 'core/dashboard.html', {
-            'engine': engine,
-            'orders_accept': orders_accept,
-            'orders_in_progress': orders_in_progres,
-            'orders_complete': orders_complete,
 
-        })
+    def get_context_data(self):
+        context = {}
+        context['engines'] = Engine.objects.all()
+        context['orders_accept'] = Order.objects.filter(status='Принят')
+        context['orders_in_progress'] = Order.objects.filter(status='В работе')
+        context['orders_complete'] = Order.objects.filter(status='Готов')
+        return context
+
+    def get(self, request):
+        context = self.get_context_data()
+        return render(request, 'core/dashboard.html', context)
 
 
 class EngineList(ListView):

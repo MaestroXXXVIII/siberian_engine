@@ -7,8 +7,8 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     ports:
       - "5432:5432"
-    environment:
-      POSTGRES_PASSWORD: 'Maestro'
+    env_file:
+      - docker/env/.env.dev
 
   web:
     build: .
@@ -19,6 +19,8 @@ services:
       - "8000:8000"
     depends_on:
       - db
+    env_file:
+      - docker/env/.env.dev
 
 volumes:
   postgres_data:

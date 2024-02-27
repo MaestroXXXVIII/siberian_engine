@@ -9,7 +9,3 @@ COPY ./requirements.txt /development/backend/siberian_engine/siberian_engine/sib
 RUN pip install -r /development/backend/siberian_engine/siberian_engine/siberian_engine/requirements.txt
 
 COPY . /development/backend/siberian_engine/siberian_engine/siberian_engine
-
-#EXPOSE 8000
-#CMD ["python", "manage.py", "migrate"]
-#CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
