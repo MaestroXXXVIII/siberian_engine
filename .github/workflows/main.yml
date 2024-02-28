@@ -30,8 +30,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Django CI
-      - uses: UKnowWhoIm/django-test-action@v0.6
-      - with:
+        uses: UKnowWhoIm/django-test-action@v0.6
+        with:
           settings-dir-path: "siberian_engine/siberian_engine/settings.py"
           requirements-file: "siberian_engine/requirements.txt"
           env-file: "siberian_engine/docker/env/.env.dev"
