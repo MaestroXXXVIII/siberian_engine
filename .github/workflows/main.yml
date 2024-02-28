@@ -21,7 +21,5 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r ./siberian_engine/requirements.txt
-      - name: Go to
-        run: cd siberian_engine/
       - name: Lint with Flake8
-        run: flake8 .
+        run: flake8 --config=./siberian_engine/setup.cfg .
