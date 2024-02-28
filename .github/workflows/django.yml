@@ -27,7 +27,7 @@ jobs:
         pip install -r ./siberian_engine/requirements.txt
     - name: Set up environment variables
       env:
-        DOTENV_PATH: /path/to/.env.dev
+        DOTENV_PATH: ./siberian_engine/docker/env/.env.dev
       run: |
         source $DOTENV_PATH
     - name: Run Tests
