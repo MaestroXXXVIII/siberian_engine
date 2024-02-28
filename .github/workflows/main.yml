@@ -1,4 +1,4 @@
-name: Foodgram
+name: SiberianEngine
 
 
 on:
@@ -23,3 +23,14 @@ jobs:
           pip install -r ./siberian_engine/requirements.txt
       - name: Lint with Flake8
         run: flake8 --config=./siberian_engine/setup.cfg .
+
+  build_docker_image:
+    name: Build docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Build
+        run: docker-compose up -d
+      - name: Start tests
+        run: docker-compose exec web python manage.py test core.tests
