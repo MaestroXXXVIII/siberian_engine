@@ -34,4 +34,4 @@ jobs:
         with:
           settings-dir-path: "siberian_engine/siberian_engine/"
           requirements-file: "siberian_engine/requirements.txt"
-          env-file: "siberian_engine/docker/env/.env.dev"
+          env-file: "siberian_engine/siberian_engine/docker/env/.env.dev"
