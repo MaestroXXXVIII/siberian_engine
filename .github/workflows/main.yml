@@ -7,7 +7,7 @@ on:
       - master
 
 jobs:
-  tests:
+  check_pep:
     runs-on:  ubuntu-latest
 
     steps:
@@ -24,13 +24,14 @@ jobs:
       - name: Lint with Flake8
         run: flake8 --config=./siberian_engine/setup.cfg .
 
-  build_docker_image:
-    name: Build docker image
+  tests:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Check out the repo
-        uses: actions/checkout@v2
-      - name: Build
-        run: docker-compose -f ./siberian_engine/docker-compose.yml up -d
-      - name: Start tests
-        run: docker-compose exec web python manage.py test core.tests
+      - uses: actions/checkout@v2
+      - name: Django CI
+      - uses: UKnowWhoIm/django-test-action@v0.6
+      - with:
+          settings-dir-path: "siberian_engine/siberian_engine/settings.py"
+          requirements-file: "siberian_engine/requirements.txt"
+          env-file: "siberian_engine/docker/env/.env.dev"
