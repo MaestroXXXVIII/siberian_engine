@@ -31,6 +31,6 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
       - name: Build
-        run: docker-compose up -d
+        run: docker-compose ./siberian_engine/docker-compose.yml up -d
       - name: Start tests
         run: docker-compose exec web python manage.py test core.tests
