@@ -3,9 +3,10 @@ from django.utils import timezone
 
 
 class CarBrand(models.Model):
-    title = models.CharField("Название", max_length=50)
+    title = models.CharField('Название', max_length=50)
 
     class Meta:
+        ordering = ['title']
         verbose_name = 'брэнд автомобиля'
         verbose_name_plural = 'брэнды автомобиля'
 
@@ -121,7 +122,7 @@ class Order(models.Model):
                               default=STATUS_ORDER[0])
 
     class Meta:
-        ordering = ["-accept_date"]
+        ordering = ["-id"]
         indexes = [
             models.Index(fields=['id']),
             models.Index(fields=['customer_name']),

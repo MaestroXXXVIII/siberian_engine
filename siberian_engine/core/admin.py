@@ -59,11 +59,15 @@ class OrderAdmin(admin.ModelAdmin):
 
     @staticmethod
     def set_id():
-        last_order = Order.objects.order_by('id').last()
-        order_number = last_order.id + 1
+        try:
+            last_order = Order.objects.order_by('id').last()
+            order_number = last_order.id + 1
+        except AttributeError:
+            order_number = 1
         return order_number
 
     def save_model(self, request, obj, form, change):
         obj.total_amount = self.sum_operations(form.cleaned_data['operation'])
-        obj.id = self.set_id()
+        if not change:
+            obj.id = self.set_id()
         super().save_model(request, obj, form, change)
