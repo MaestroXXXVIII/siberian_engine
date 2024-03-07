@@ -1,3 +1,4 @@
+s = ""
 """
 Django settings for siberian_engine project.
 
@@ -107,6 +108,34 @@ CACHES = {
 
 ENGINE_CACHE_NAME = 'engine'
 OPERATION_CACHE_NAME = 'operation'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': "{levelname} {asctime} {module} {message} \n",
+            'style': '{'
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'ERROR',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+        'file': {
+            'level': 'CRITICAL',
+            'class': 'logging.FileHandler',
+            'filename': 'logs.log',
+            'formatter': 'verbose',
+        },
+    },
+    'root': {
+        'handlers': ['console', 'file'],
+        'level': 'ERROR',
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

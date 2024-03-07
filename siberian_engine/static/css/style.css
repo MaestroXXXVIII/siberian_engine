@@ -10,6 +10,17 @@ ul {
 a {
     text-decoration: none;
 }
+button {
+    font-size: 16px;
+    color: #e5f8e5;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+button:hover {
+    opacity: 0.8;
+}
+
 .header {
     height: 40px;
     padding: 5px 0px 0px 20px;
@@ -46,11 +57,9 @@ a {
     min-height: 100vh;
 
 }
-
 .dash__stats {
     display: flex;
 }
-
 .dash__card {
     min-width: 300px;
     height: fit-content;
@@ -62,19 +71,20 @@ a {
     color: #fff;
     font-size: 24px;
 }
-
 .dash__card p {
     margin: 0px 0px 15px 0px;
     color: #e5f8e5;
     font-size: 18px;
 }
 .list {
-    margin-top: 80px;
+    margin-top: 40px;
 }
+
+
 table {
   border-collapse: collapse;
   width: 1631px;
-  margin: auto;
+  margin: 70px auto auto auto;
 }
 
 td, th {
@@ -92,4 +102,72 @@ tbody tr:hover {
     background-repeat: no-repeat;
     background-size: 100% 100%;
     transition: 0.3s;
+}
+
+.create-order {
+    position: absolute;
+    right: 22px;
+}
+
+.create-order button {
+    padding: 10px 20px;
+    background-color: #70bf5d;
+    font-size: 16px;
+    color: #e5f8e5;
+    border-radius: 8px;
+    border: none;
+}
+
+.back-to-orders {
+    margin: 30px 0px 0px 70px;
+    height: fit-content;
+}
+.back-to-orders button {
+    padding: 10px 30px;
+    background-color: #e7ffde;
+    border: 2px solid grey;
+    margin-right: 5px;
+    cursor: pointer;
+    color: grey;
+}
+
+.update-form {
+    margin: 50px auto 0px auto;
+}
+
+.update-form p {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.update-form p label {
+    width: 150px;
+}
+
+.update-form p input, .update-form p select, .update-form p textarea {
+    flex: 1;
+}
+
+.update-form input, select, textarea{
+    margin-left: 5px;
+    padding: 5px;
+    font-size: 14px;
+    border: 2px solid #90ff77;
+    border-radius: 5px;
+}
+
+.action {
+    margin-top: 20px;
+    margin-left: 50%;
+}
+.update-form__submit {
+    padding: 10px 20px;
+    background-color: #70bf5d;
+    margin-right: 5px;
+}
+.update-form__reset {
+    padding: 10px 24px;
+    background-color: #e34234;
+    margin-left: 5px
 }

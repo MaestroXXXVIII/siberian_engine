@@ -1,10 +1,13 @@
-from datetime import datetime
+import json
+
 from django.conf import settings
-from django.core.cache import cache
+from django.http import JsonResponse
+from django.urls import reverse_lazy
 from django.shortcuts import render
 from django.views import View
-from django.views.generic import ListView, DetailView
-from django.views.decorators.cache import cache_page
+from django.core.cache import cache
+from django.core.serializers import serialize
+from django.views.generic import ListView, UpdateView, CreateView
 
 from .models import Engine, Order, Operation
 
@@ -53,7 +56,7 @@ class EngineList(ListView):
             queryset = engine_cache
         else:
             queryset = Engine.objects.all().select_related('brand')
-            cache.set(settings.ENGINE_CACHE_NAME, self.queryset, 3600 * 8)
+            cache.set(settings.ENGINE_CACHE_NAME, queryset, 3600 * 8)
         return queryset
 
 
@@ -80,11 +83,64 @@ class OperationList(ListView):
 
 class OrderList(ListView):
     model = Order
+
     queryset = (Order.objects.all().select_related('engine', 'engine__brand')
                                    .prefetch_related('operation'))
     template_name = 'core/order_list'
     context_object_name = 'orders'
 
 
-class OrderDetail(DetailView):
+class OrderCreate(CreateView):
     model = Order
+    fields = '__all__'
+    template_name_suffix = '_create_form'
+    success_url = reverse_lazy('order_list')
+
+    def form_valid(self, form):
+        order = form.instance
+
+        total_amount = calculate_total_amount(form)
+        order.total_amount = total_amount
+        order.id = Order.objects.count() + 1
+
+        order.save()
+
+        return super().form_valid(form)
+
+
+class OrderUpdate(UpdateView):
+    model = Order
+    fields = '__all__'
+    template_name_suffix = '_update_form'
+    success_url = reverse_lazy('order_list')
+
+    def form_valid(self, form):
+        order = form.instance
+
+        total_amount = calculate_total_amount(form)
+        order.total_amount = total_amount
+
+        order.save()
+
+        return super().form_valid(form)
+
+
+def calculate_total_amount(form):
+    operations = form.cleaned_data.get('operation')
+    total_amount = sum(operation.price for operation in operations)
+    return total_amount
+
+
+def get_operations_by_engine(request):
+    try:
+        body = request.body.decode('utf-8')
+        data = json.loads(body)
+        engine_id = data.get('engine')
+        operations = serialize('json', Operation.objects
+                                                .filter(engine__id=engine_id))
+
+        return JsonResponse({'operations': operations})
+
+    except Operation.DoesNotExist:
+
+        return JsonResponse({'operations': ''})

@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
+
 <div class="list">
+    <a href="{% url 'order_create' %}" class="create-order">
+        <button type="button">
+            Создать заказ
+        </button>
+    </a>
     <table>
         <thead>
             <tr>
@@ -12,12 +17,11 @@
                 <th>Двигатель</th>
                 <th>Итоговая сумма</th>
                 <th>Статус</th>
-
             </tr>
         </thead>
         <tbody>
             {% for order in orders %}
-                <tr onclick="document.location = '{% url 'order_detail' pk=order.id %}';">
+                <tr onclick="document.location = '{% url 'order_update' pk=order.id %}';">
                     <td>{{ order.id }}</td>
                     <td>{{ order.customer_name }}</td>
                     <td>{{ order.customer_phone_number }}</td>
