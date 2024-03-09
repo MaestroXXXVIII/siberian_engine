@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <a class="back-to" href="{% url 'order_list' %}">
+        <button class="back-to-orders__button">
+            Назад
+        </button>
+    </a>
+    <a class="print" target="_blank" href="{% url 'order_pdf' pk=order.pk %}">
+        <button class="print__button">
+            Печать
+        </button>
+    </a>
+    <form class="crud-form" action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="crud-form__action">
+            <button class="crud-form__submit" type="submit">Сохранить</button>
+            <button class="crud-form__reset" type="reset">Сбросить</button>
+        </div>
+    </form>
+{% endblock %}

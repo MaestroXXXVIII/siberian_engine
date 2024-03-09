@@ -2,20 +2,6 @@ from django.test import TestCase, SimpleTestCase
 from django.urls import reverse, resolve
 
 from .views import DashView, EngineList, OperationList, OrderList
-from .models import CategoryOperations
-
-
-class CategoryTestCase(TestCase):
-
-    def setUp(self):
-        CategoryOperations.objects.create(title='ГБЦ', slug='gbc')
-        CategoryOperations.objects.create(title='Блок', slug='block')
-
-    def test_get_category(self):
-        cylinder_head = CategoryOperations.objects.get(title='ГБЦ')
-        block = CategoryOperations.objects.get(title='Блок')
-        self.assertEqual(cylinder_head.slug, 'gbc')
-        self.assertEqual(block.slug, 'block')
 
 
 class CoreViewTest(TestCase):

@@ -3,6 +3,11 @@
 
 {% block content %}
 <div class="list">
+    <a href="{% url 'operation_create' %}" class="list__create-btn">
+        <button type="button">
+            Добавить операцию
+        </button>
+    </a>
     <table>
         <thead>
             <tr>
@@ -14,7 +19,7 @@
         </thead>
         <tbody>
             {% for operation in operations %}
-                <tr>
+                <tr onclick="document.location = '{% url 'operation_update' pk=operation.id %}'">
                     <td>{{ operation.title }}</td>
                     <td>{{ operation.category }}</td>
                     <td>{{ operation.engine }}</td>

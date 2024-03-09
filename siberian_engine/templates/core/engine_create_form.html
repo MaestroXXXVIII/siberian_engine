@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form class="crud-form" action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="crud-form__action">
+            <button class="crud-form__submit" type="submit">Сохранить</button>
+            <button class="crud-form__reset" type="reset">Сбросить</button>
+        </div>
+    </form>
+{% endblock content %}
+    

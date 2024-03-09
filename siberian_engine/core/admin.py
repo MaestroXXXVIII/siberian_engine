@@ -13,13 +13,11 @@ class CarBrandAdmin(admin.ModelAdmin):
 class EngineAdmin(admin.ModelAdmin):
     list_display = ['title', 'brand', 'engine_type']
     search_fields = ['title', 'engine_type']
-    prepopulated_fields = {'slug': ('title',)}
 
 
 @admin.register(CategoryOperations)
 class CategoryOperationsAdmin(admin.ModelAdmin):
     list_display = ['title']
-    prepopulated_fields = {'slug': ('title', )}
 
 
 @admin.register(Operation)
@@ -28,7 +26,6 @@ class OperationAdmin(admin.ModelAdmin):
     list_editable = ['price']
     list_filter = ['title', 'engine']
     search_fields = ['title']
-    prepopulated_fields = {'slug': ('title',)}
 
 
 @admin.register(Order)

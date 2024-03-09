@@ -2,6 +2,11 @@
 
 {% block content %}
 <div class="list">
+    <a href="{% url 'engine_create' %}" class="list__create-btn">
+        <button type="button">
+            Добавить двигатель
+        </button>
+    </a>
     <table>
         <thead>
             <tr>
@@ -12,7 +17,7 @@
         </thead>
         <tbody>
             {% for engine in engines %}
-                <tr>
+                <tr onclick="document.location = '{% url 'engine_update' pk=engine.id %}'">
                     <td>{{ engine.brand }}</td>
                     <td>{{ engine.title }}</td>
                     <td>{{ engine.engine_type }}</td>

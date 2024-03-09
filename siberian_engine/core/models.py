@@ -31,7 +31,6 @@ class Engine(models.Model):
     count_of_cylinders = models.IntegerField("Количество цилиндров", default=0)
     count_of_valves = models.IntegerField("Количество клапанов", default=0)
     engine_type = models.CharField("Тип двигателя", choices=ENGINE_TYPE)
-    slug = models.SlugField()
 
     class Meta:
         verbose_name = 'двигатель'
@@ -47,7 +46,6 @@ class Engine(models.Model):
 
 class CategoryOperations(models.Model):
     title = models.CharField("Название", max_length=50)
-    slug = models.SlugField()
 
     class Meta:
         verbose_name = "категория"
@@ -72,7 +70,6 @@ class Operation(models.Model):
                                blank=True
                                )
     price = models.PositiveIntegerField("Цена")
-    slug = models.SlugField()
 
     class Meta:
         ordering = ["title"]

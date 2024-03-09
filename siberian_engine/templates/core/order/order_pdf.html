@@ -1,0 +1,72 @@
+<html>
+    <body>
+        <h1>SiberianEngine</h1>
+        <p>
+            Заказ-наряд № {{ order.id }}<br>
+            <span class="secondary">
+                Дата приемки: {{ order.accept_date }}
+            </span>
+        </p>
+        <h3>Клиент</h3>
+        <p>
+            {{ order.customer_name }} {{ order.customer_phone_number }}<br>
+        </p>
+        <h3>Модель двигателя</h3>
+        <p>
+            {{ order.engine }}<br>
+        </p>
+        <table class="order-details">
+            <thead>
+                <tr>
+                    <th>Наименование</th>
+                    <th>Количество цилиндров</th>
+                    <th>Количество клапанов</th>
+                    <th>Цена</th>
+                    <th>Дата выполнения</th>
+                    <th>Подпись</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for operation in operations %}
+                    <tr>
+                        <td>{{ operation.title }}</td>
+                        <td>{{ operation.engine.count_of_cylinders }}</td>
+                        <td>{{ order.engine.count_of_valves }}</td>
+                        <td class="num">{{ operation.price }}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+                <tr class="total">
+                    <td colspan="4">Итого</td>
+                    <td class="num">{{ order.total_amount }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>Комментарии</h4>
+        <table class="comments">
+            <tbody>
+                {% if order.comments %}
+                        <tr>
+                            <td>{{ order.comments|slice:':10' }}</td>
+                        </tr>
+                    {% if order.comments|length > 10 %}
+                        <tr>
+                            <td>{{ order.comments|slice:'10:' }}</td>
+                        </tr>
+                    {% endif %}
+                {% else %}
+                    <tr>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </body>
+</html>
