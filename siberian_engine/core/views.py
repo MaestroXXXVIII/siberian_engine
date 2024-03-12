@@ -1,5 +1,4 @@
 import json
-import weasyprint
 
 from django.conf import settings
 from django.http import HttpResponse, JsonResponse
@@ -9,9 +8,9 @@ from django.views import View
 from django.core.cache import cache
 from django.core.serializers import serialize
 from django.views.generic import ListView, UpdateView, CreateView
-from django.template.loader import render_to_string
 
 from .models import Engine, Order, Operation
+from .utils import generate_pdf
 
 
 class DashView(View):
@@ -150,8 +149,6 @@ class OrderUpdate(UpdateView):
         total_amount = calculate_total_amount(form)
         order.total_amount = total_amount
 
-        order.save()
-
         return super().form_valid(form)
 
 
@@ -178,15 +175,10 @@ def get_operations_by_engine(request):
 
 def order_pdf(request, pk):
     order = Order.objects.get(id=pk)
-    operations = order.operation.all().select_related('engine')
-    html = render_to_string('core/order/order_pdf.html', {
-                            'order': order,
-                            'operations': operations
-                            })
+
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = f'filename=order_{order.id}.pdf'
-    weasyprint.HTML(string=html) \
-              .write_pdf(response,
-                         stylesheets=[weasyprint.CSS(f'{settings.STATIC_DIR}/'
-                                                     f'css/order_pdf.css')])
+
+    generate_pdf(order, response)
+
     return response

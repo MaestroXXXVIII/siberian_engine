@@ -38,7 +38,7 @@
                     </tr>
                 {% endfor %}
                 <tr class="total">
-                    <td colspan="4">Итого</td>
+                    <td colspan="3">Итого</td>
                     <td class="num">{{ order.total_amount }}</td>
                 </tr>
             </tbody>
@@ -68,5 +68,8 @@
                 {% endif %}
             </tbody>
         </table>
+        <span class="{% if order.status == 'Готов' %}complete{% endif %}">
+            {% if order.status == 'Готов' %}Готов{% endif %}
+        </span>
     </body>
 </html>

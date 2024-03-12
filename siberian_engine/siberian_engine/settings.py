@@ -1,4 +1,3 @@
-s = ""
 """
 Django settings for siberian_engine project.
 
@@ -10,10 +9,10 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
-from pathlib import Path
 import os
 import environ
+
+from pathlib import Path
 
 
 env = environ.Env()
@@ -109,6 +108,9 @@ CACHES = {
 ENGINE_CACHE_NAME = 'engine'
 OPERATION_CACHE_NAME = 'operation'
 
+CELERY_TIMEZONE = 'Asia/Irkutsk'
+CELERY_BROKER_URL = 'amqp://guest:guest@rabbitmq:5672//'
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -136,6 +138,17 @@ LOGGING = {
         'level': 'ERROR',
     },
 }
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = 'urmanov.pro@gmail.com'
+EMAIL_HOST_PASSWORD = 'sdxn tpzy epod sklm '
+
+EMAIL_SERVER = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_ADMIN = ['urmanov.pro@gmail.com']
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -179,8 +192,3 @@ STATICFILES_DIRS = [STATIC_DIR]
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-try:
-    from local_settings import *
-except ImportError:
-    pass
