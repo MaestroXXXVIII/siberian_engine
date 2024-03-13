@@ -99,6 +99,11 @@ class Order(models.Model):
     id = models.AutoField("Номер заказа", primary_key=True, unique=True)
     customer_name = models.CharField("Имя заказчика", max_length=50)
     customer_phone_number = models.CharField("Номер заказчика", max_length=12)
+    customer_email = models.EmailField("Почта",
+                                       max_length=100,
+                                       blank=True,
+                                       null=True
+                                       )
     engine = models.ForeignKey(Engine,
                                on_delete=models.CASCADE,
                                blank=True,
