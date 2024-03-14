@@ -14,10 +14,10 @@ def order_completed(order_id):
     subject = f'Заказ № {order.id} готов'
     message = f'Здравствуйте, {order.customer_name}!\nВаш {subject}. ' \
               f'Модель двигателя {order.engine}.\nСумма: {order.total_amount}'
-
+    print(order.customer_email)
     email = EmailMessage(subject, message,
                          'urmanov.pro@gmail.com',
-                         [order.email]
+                         [order.customer_email]
                          )
 
     out = BytesIO()
